@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OQIM - UzCombinator Pitch Deck</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fixed font import: using specific weights to ensure it loads correctly -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. YC / LINEAR AESTHETIC CORE */
+        :root {
+            --bg-color: #000000;
+            --surface-color: #0A0A0A;
+            --border-color: #262626;
+            --text-main: #FFFFFF;
+            --text-muted: #888888;
+            --accent: #00F2EA; /* OQIM Cyan */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #111;
+            margin: 0;
+            padding: 40px 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            gap: 40px;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--bg-color);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 60px 80px; /* Generous padding */
+            border: 1px solid #333;
+        }
+
+        /* Background Grid */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('http://googleusercontent.com/image_collection/image_retrieval/10613598875444823658');
+            background-size: cover;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .content {
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 2. TYPOGRAPHY */
+        h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: 110px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin: 0 0 20px 0;
+            line-height: 1;
+        }
+
+        h2.slide-title {
+            font-size: 36px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin: 0 0 40px 0;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Breadcrumb style title */
+        h2.slide-title::before {
+            content: 'OQIM /';
+            color: #fff;
+            font-weight: 700;
+            font-family: 'Bricolage Grotesque', sans-serif;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 10px 0;
+        }
+
+        p, li {
+            font-size: 24px;
+            color: #d4d4d4;
+            line-height: 1.5;
+            margin: 0 0 20px 0;
+            font-weight: 400;
+        }
+
+        .big-stat {
+            font-size: 100px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }
+
+        .accent-text {
+            color: var(--accent);
+        }
+
+        .source-text {
+            font-size: 14px;
+            color: #444;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            font-family: 'Inter', monospace;
+        }
+
+        .mvp-badge {
+            font-size: 14px;
+            background: #222;
+            color: var(--accent);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            margin-left: 15px;
+            vertical-align: middle;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* 3. LAYOUT UTILITIES */
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            height: 100%;
+            align-items: center;
+        }
+
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            height: 100%;
+            align-items: stretch;
+        }
+
+        .grid-4-col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            align-items: stretch;
+        }
+
+        /* 4. COMPONENT STYLES */
+
+        /* Minimal Card */
+        .card {
+            border-top: 1px solid var(--border-color);
+            padding-top: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-icon {
+            font-size: 24px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        /* Problem Statement */
+        .problem-stat {
+            font-size: 60px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            letter-spacing: -0.03em;
+        }
+
+        .problem-list {
+            list-style: none;
+            padding: 0;
+            margin: 40px 0 0 0;
+        }
+
+        .problem-list li {
+            display: flex;
+            align-items: baseline;
+            gap: 15px;
+            margin-bottom: 24px;
+            color: #a3a3a3;
+        }
+
+        .problem-list li::before {
+            content: '×';
+            color: #ff4444;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        /* Traction Metrics */
+        .metric-box {
+            border-left: 2px solid var(--border-color);
+            padding-left: 30px;
+        }
+
+        .metric-label {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        /* Pricing Table */
+        .pricing-col {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 4px;
+        }
+
+        .price-tag {
+            font-size: 40px;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--text-main);
+        }
+
+        .price-period {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* 5. PRINT OPTIMIZATION (Use Ctrl+P / Cmd+P) */
+        @media print {
+            body {
+                background-color: #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: block !important;
+            }
+            .slide-container {
+                page-break-after: always;
+                break-after: page;
+                margin: 0 !important;
+                border: none !important;
+                width: 100% !important;
+                height: 100vh !important;
+                box-shadow: none !important;
+                /* Force background color in print */
+                background-color: #000000 !important;
+            }
+            .grid-bg {
+                /* Ensure background image shows up if user enabled background graphics */
+                opacity: 0.3 !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Title -->
+    <div class="slide-container" id="slide1">
+        <div class="grid-bg"></div>
+        <div class="content flex-center" style="align-items: flex-start; justify-content: center; flex-direction: column;">
+            <div style="margin-bottom: 40px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; font-size: 14px; text-transform: uppercase;">UzCombinator Pitch</div>
+            <h1>OQIM</h1>
+            <p style="font-size: 32px; color: #888;">Business Intelligence for Telegram.</p>
+        </div>
+    </div>
+
+    <!-- Slide 2: Problem -->
+    <div class="slide-container" id="slide2">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h2 class="slide-title">Problem</h2>
+            <div class="grid-2-col">
+                <div>
+                    <div class="problem-stat">200k <span style="color: #666;">businesses run on Telegram.</span></div>
+                    <div class="source-text">(Source: stat.uz)</div>
+                    <div class="problem-stat" style="color: #666;">Zero <span style="color: var(--text-main);">visibility.</span></div>
+                </div>
+                <div>
+                    <ul class="problem-list">
+                        <li>No analytics or tracking</li>
+                        <li>Messages buried & orders lost</li>
+                        <li>Manual responses (100x same question)</li>
+                        <li>Owners running blind</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Solution -->
+    <div class="slide-container" id="slide3">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h2 class="slide-title">Solution <span class="mvp-badge">MVP Live</span></h2>
+            <h1 style="font-size: 48px; margin-bottom: 60px; font-family: 'Inter', sans-serif; font-weight: 700;">The intelligence layer Telegram never built.</h1>
+            <div class="grid-3-col">
+                <div class="card">
+                    <i class="fa-solid fa-magnifying-glass card-icon"></i>
+                    <h3>Semantic Search</h3>
+                    <p style="font-size: 18px; color: #888;">Find "that order from last week" instantly. Understands meaning, not just keywords.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-bolt card-icon"></i>
+                    <h3>Smart Feed</h3>
+                    <p style="font-size: 18px; color: #888;">AI filters noise. See only what needs attention. Conversations convert to documents.</p>
+                </div>
+                <div class="card">
+                    <i class="fa-solid fa-robot card-icon"></i>
+                    <h3>No-Code Bots</h3>
+                    <p style="font-size: 18px; color: #888;">Deploy customer service agents in 60 seconds. Automate 80% of queries.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Traction -->
+    <div class="slide-container" id="slide4">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h2 class="slide-title">Traction</h2>
+            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; gap: 60px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;">
+                    <div class="metric-box">
+                        <div class="big-stat accent-text">Top 3</div>
+                        <div class="metric-label">at AI500 Hackathon (1000+ Teams)</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="big-stat">$10k</div>
+                        <div class="metric-label">Non-dilutive Prize Won</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="big-stat">14</div>
+                        <div class="metric-label">Days to Build & Launch MVP</div>
+                    </div>
+                </div>
+                <div style="font-size: 24px; color: #fff; background: #1a1a1a; padding: 20px; border-radius: 4px; display: inline-block; width: fit-content;">
+                    <i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> 1 Paying customer committed pre-launch
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Market (UPDATED) -->
+    <div class="slide-container" id="slide5">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h2 class="slide-title">Market</h2>
+            <div class="grid-2-col">
+                <div style="display: flex; flex-direction: column; gap: 40px;">
+                    <div>
+                        <div class="big-stat">20M</div>
+                        <p>Telegram Users in Uzbekistan</p>
+                    </div>
+                    <div>
+                        <div class="big-stat">200k</div>
+                        <p>Businesses using Telegram for Ops</p>
+                    </div>
+                    <div>
+                        <div class="big-stat accent-text">$500M</div>
+                        <p>B2B SaaS Opportunity in Central Asia</p>
+                    </div>
+                </div>
+                <!-- Updated Right Column: Market Dynamics -->
+                <div style="border: 1px solid #333; padding: 40px; background: #0A0A0A; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                    <h3 style="color: var(--accent); margin-bottom: 30px;">Market Dynamics</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 30px; font-size: 22px; color: #fff;">
+                            <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">Infrastructure Shift</strong>
+                            Websites are dying in Central Asia. Telegram is the new OS.
+                        </li>
+                        <li style="margin-bottom: 30px; font-size: 22px; color: #fff;">
+                            <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">Behavior</strong>
+                            Users don't browse. They chat. Commerce happens inside the messenger.
+                        </li>
+                        <li style="margin-bottom: 0; font-size: 22px; color: #fff;">
+                            <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">The Gap</strong>
+                            99% of these transactions are manual. We are the automation layer.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 6: Business Model -->
+    <div class="slide-container" id="slide6">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h2 class="slide-title">Business Model</h2>
+            <div class="grid-3-col" style="align-items: center;">
+                <div class="pricing-col">
+                    <h3>Starter</h3>
+                    <div class="price-tag">$15<span class="price-period">/mo</span></div>
+                    <p style="font-size: 16px; color: #666;">For solo entrepreneurs.</p>
+                </div>
+                <div class="pricing-col" style="border-color: var(--accent); background: #0f1c1c;">
+                    <h3 style="color: var(--accent);">Business</h3>
+                    <div class="price-tag">$50<span class="price-period">/mo</span></div>
+                    <p style="font-size: 16px; color: #8baeb0;">For growing teams.</p>
+                </div>
+                <div class="pricing-col">
+                    <h3>Enterprise</h3>
+                    <div class="price-tag">$200+<span class="price-period">/mo</span></div>
+                    <p style="font-size: 16px; color: #666;">For scale & API access.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 7: Team -->
+    <div class="slide-container" id="slide7">
+        <div class="grid-bg"></div>
+        <div class="content">
+            <h2 class="slide-title">Team</h2>
+            <div class="grid-4-col">
+                <div class="card">
+                    <h3 style="font-size: 20px;">Mirzosharif</h3>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Founder & Tech</p>
+                    <p style="font-size: 14px; color: #888;">LLM Researcher. Olympiad Medalist. Built Opportuni (UNDP backed startup).</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 20px;">Oybek</h3>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Co-founder</p>
+                    <p style="font-size: 14px; color: #888;">CEO of IT Abstract Group. AI500 Mentor turned believer.</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 20px;">Mukhlisa</h3>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Market Research</p>
+                    <p style="font-size: 14px; color: #888;">Currently at ZOZH (NYC). Deep understanding of consumer behavior.</p>
+                </div>
+                <div class="card">
+                    <h3 style="font-size: 20px;">Khumoyun</h3>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Strategy</p>
+                    <p style="font-size: 14px; color: #888;">Ex-Disney & Ministry of Finance. Strategic partnerships.</p>
+                </div>
+            </div>
+            <div style="margin-top: auto; border-top: 1px solid #333; padding-top: 30px;">
+                <p style="font-size: 32px; color: #fff; margin: 0;">"The Operating System for Central Asia."</p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
