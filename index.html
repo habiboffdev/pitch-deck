@@ -6,7 +6,6 @@
     <title>OQIM - UzCombinator Pitch Deck</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Fixed font import: using specific weights to ensure it loads correctly -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -72,7 +71,7 @@
         /* 2. TYPOGRAPHY */
         h1 {
             font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: 110px;
+            font-size: 110px; 
             font-weight: 800;
             letter-spacing: -0.03em;
             margin: 0 0 20px 0;
@@ -89,8 +88,7 @@
             align-items: center;
             gap: 12px;
         }
-
-        /* Breadcrumb style title */
+        
         h2.slide-title::before {
             content: 'OQIM /';
             color: #fff;
@@ -104,14 +102,15 @@
             margin: 0 0 10px 0;
         }
 
-        p, li {
+        /* GLOBAL TEXT STYLES - CAREFUL WITH OVERRIDES */
+        p, .content > ul > li {
             font-size: 24px;
             color: #d4d4d4;
             line-height: 1.5;
             margin: 0 0 20px 0;
             font-weight: 400;
         }
-
+        
         .big-stat {
             font-size: 100px;
             font-weight: 700;
@@ -168,24 +167,23 @@
             height: 100%;
             align-items: stretch;
         }
-
+        
         .grid-4-col {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
+            gap: 15px;
             align-items: stretch;
         }
 
         /* 4. COMPONENT STYLES */
-
-        /* Minimal Card */
+        
         .card {
             border-top: 1px solid var(--border-color);
             padding-top: 24px;
             display: flex;
             flex-direction: column;
         }
-
+        
         .card-icon {
             font-size: 24px;
             color: var(--accent);
@@ -226,7 +224,7 @@
             border-left: 2px solid var(--border-color);
             padding-left: 30px;
         }
-
+        
         .metric-label {
             font-size: 16px;
             text-transform: uppercase;
@@ -234,53 +232,63 @@
             color: var(--text-muted);
             margin-top: 10px;
         }
-
-        /* Pricing Table */
+        
+        /* Pricing Table Styles (Specific Overrides) */
         .pricing-col {
             background: var(--surface-color);
             border: 1px solid var(--border-color);
-            padding: 30px;
+            padding: 20px;
             border-radius: 4px;
         }
 
-        .price-tag {
-            font-size: 40px;
-            font-weight: 700;
-            margin: 20px 0;
-            color: var(--text-main);
+        /* Force override global li styles */
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .pricing-features li {
+            font-size: 11px !important; /* The Fix */
+            line-height: 1.4 !important;
+            margin-bottom: 3px !important;
+            color: #aaa;
+            display: block;
         }
 
+        .pricing-features li.feature-header {
+            color: #fff;
+            font-weight: 700;
+            font-size: 10px !important;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 12px !important;
+            margin-bottom: 6px !important;
+        }
+
+        .pricing-features li.feature-header:first-child {
+            margin-top: 0 !important;
+        }
+        
+        .price-tag {
+            font-size: 32px;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+        
         .price-period {
-            font-size: 16px;
+            font-size: 13px;
             color: var(--text-muted);
             font-weight: 400;
         }
 
-        /* 5. PRINT OPTIMIZATION (Use Ctrl+P / Cmd+P) */
+        /* 5. PRINT OPTIMIZATION */
         @media print {
-            body {
-                background-color: #000 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                display: block !important;
-            }
-            .slide-container {
-                page-break-after: always;
-                break-after: page;
-                margin: 0 !important;
-                border: none !important;
-                width: 100% !important;
-                height: 100vh !important;
-                box-shadow: none !important;
-                /* Force background color in print */
-                background-color: #000000 !important;
-            }
-            .grid-bg {
-                /* Ensure background image shows up if user enabled background graphics */
-                opacity: 0.3 !important;
-            }
+            body { background-color: #000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0 !important; padding: 0 !important; display: block !important; }
+            .slide-container { page-break-after: always; break-after: page; margin: 0 !important; border: none !important; width: 100% !important; height: 100vh !important; box-shadow: none !important; background-color: #000000 !important; }
+            .grid-bg { opacity: 0.3 !important; }
         }
 
     </style>
@@ -324,24 +332,63 @@
     <div class="slide-container" id="slide3">
         <div class="grid-bg"></div>
         <div class="content">
-            <h2 class="slide-title">Solution <span class="mvp-badge">MVP Live</span></h2>
-            <h1 style="font-size: 48px; margin-bottom: 60px; font-family: 'Inter', sans-serif; font-weight: 700;">The intelligence layer Telegram never built.</h1>
-            <div class="grid-3-col">
-                <div class="card">
-                    <i class="fa-solid fa-magnifying-glass card-icon"></i>
-                    <h3>Semantic Search</h3>
-                    <p style="font-size: 18px; color: #888;">Find "that order from last week" instantly. Understands meaning, not just keywords.</p>
+            <h2 class="slide-title">Solution</h2>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 30px;">
+                <h1 style="font-size: 48px; font-family: 'Inter', sans-serif; font-weight: 700; margin: 0;">The intelligence layer Telegram never built.</h1>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 24px; height: 100%;">
+                
+                <!-- ROW 1: MVP LIVE -->
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent);"></span>
+                        Live Now (MVP)
+                    </div>
+                    <div class="grid-3-col" style="gap: 20px;">
+                        <div class="card" style="padding-top: 20px; border-top-color: var(--accent);">
+                            <i class="fa-solid fa-magnifying-glass card-icon" style="font-size: 20px; margin-bottom: 15px;"></i>
+                            <h3 style="font-size: 20px;">Semantic Search</h3>
+                            <p style="font-size: 16px; color: #888; margin: 0;">Find "that order from last week" instantly. Understands context, not just keywords.</p>
+                        </div>
+                        <div class="card" style="padding-top: 20px; border-top-color: var(--accent);">
+                            <i class="fa-solid fa-bolt card-icon" style="font-size: 20px; margin-bottom: 15px;"></i>
+                            <h3 style="font-size: 20px;">Smart Feed</h3>
+                            <p style="font-size: 16px; color: #888; margin: 0;">AI filters noise. 500 messages → 30 seconds. Conversations convert to docs.</p>
+                        </div>
+                        <div class="card" style="padding-top: 20px; border-top-color: var(--accent);">
+                            <i class="fa-solid fa-robot card-icon" style="font-size: 20px; margin-bottom: 15px;"></i>
+                            <h3 style="font-size: 20px;">No-Code Bots</h3>
+                            <p style="font-size: 16px; color: #888; margin: 0;">Deploy service agents in 60s. Automate 80% of repetitive queries.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-bolt card-icon"></i>
-                    <h3>Smart Feed</h3>
-                    <p style="font-size: 18px; color: #888;">AI filters noise. See only what needs attention. Conversations convert to documents.</p>
+
+                <!-- ROW 2: FUTURE VISION -->
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div style="font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; display: flex; align-items: center; gap: 10px;">
+                        <span style="width: 8px; height: 8px; border: 1px solid #666; border-radius: 50%;"></span>
+                        Building Now (Q3)
+                    </div>
+                    <div class="grid-3-col" style="gap: 20px;">
+                        <div class="card" style="padding-top: 20px; border-top-style: dashed; border-top-color: #444;">
+                            <i class="fa-solid fa-chart-line card-icon" style="color: #666; font-size: 20px; margin-bottom: 15px;"></i>
+                            <h3 style="font-size: 20px; color: #ccc;">Team Analytics</h3>
+                            <p style="font-size: 16px; color: #666; margin: 0;">Full visibility. Track response times, conversion rates, and agent performance.</p>
+                        </div>
+                        <div class="card" style="padding-top: 20px; border-top-style: dashed; border-top-color: #444;">
+                            <i class="fa-solid fa-brain card-icon" style="color: #666; font-size: 20px; margin-bottom: 15px;"></i>
+                            <h3 style="font-size: 20px; color: #ccc;">Deep CRM</h3>
+                            <p style="font-size: 16px; color: #666; margin: 0;">Know who buys, who churns, and <em style="color: #888;">why</em>—before it happens.</p>
+                        </div>
+                        <div class="card" style="padding-top: 20px; border-top-style: dashed; border-top-color: #444;">
+                            <i class="fa-solid fa-microchip card-icon" style="color: #666; font-size: 20px; margin-bottom: 15px;"></i>
+                            <h3 style="font-size: 20px; color: #ccc;">Autonomous Agents</h3>
+                            <p style="font-size: 16px; color: #666; margin: 0;">Multi-agent systems that don't just chat—they book, order, and close deals.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-robot card-icon"></i>
-                    <h3>No-Code Bots</h3>
-                    <p style="font-size: 18px; color: #888;">Deploy customer service agents in 60 seconds. Automate 80% of queries.</p>
-                </div>
+
             </div>
         </div>
     </div>
@@ -367,7 +414,7 @@
                     </div>
                 </div>
                 <div style="font-size: 24px; color: #fff; background: #1a1a1a; padding: 20px; border-radius: 4px; display: inline-block; width: fit-content;">
-                    <i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> 1 Paying customer committed pre-launch
+                    <i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> 10 Committed customers
                 </div>
             </div>
         </div>
@@ -393,10 +440,10 @@
                         <p>B2B SaaS Opportunity in Central Asia</p>
                     </div>
                 </div>
-                <!-- Updated Right Column: Market Dynamics -->
+                <!-- Updated Right Column: Market Dynamics (Fixed: Removed problem-list class) -->
                 <div style="border: 1px solid #333; padding: 40px; background: #0A0A0A; height: 100%; display: flex; flex-direction: column; justify-content: center;">
                     <h3 style="color: var(--accent); margin-bottom: 30px;">Market Dynamics</h3>
-                    <ul style="list-style: none; padding: 0;">
+                    <ul style="list-style: none; padding: 0; margin: 0;">
                         <li style="margin-bottom: 30px; font-size: 22px; color: #fff;">
                             <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">Infrastructure Shift</strong>
                             Websites are dying in Central Asia. Telegram is the new OS.
@@ -415,28 +462,145 @@
         </div>
     </div>
 
-    <!-- Slide 6: Business Model -->
+    <!-- Slide 6: Pricing (4 TIERS - FIXED SIZING) -->
     <div class="slide-container" id="slide6">
         <div class="grid-bg"></div>
         <div class="content">
-            <h2 class="slide-title">Business Model</h2>
-            <div class="grid-3-col" style="align-items: center;">
-                <div class="pricing-col">
-                    <h3>Starter</h3>
-                    <div class="price-tag">$15<span class="price-period">/mo</span></div>
-                    <p style="font-size: 16px; color: #666;">For solo entrepreneurs.</p>
+            <h2 class="slide-title">Pricing</h2>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <h1 style="font-size: 40px; font-family: 'Inter', sans-serif; font-weight: 700; margin: 0 0 5px 0;">Start free. Scale as you grow.</h1>
+            </div>
+
+            <div class="grid-4-col" style="gap: 15px; align-items: stretch; height: auto;">
+                
+                <!-- TIER 1: FREE -->
+                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border-top: 2px solid #333; gap: 10px;">
+                    <div>
+                        <h3 style="font-size: 14px; color: #fff; margin: 0; font-weight: 600;">Free</h3>
+                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$0<span class="price-period" style="font-size: 12px; font-weight: 400; color: #666;"> forever</span></div>
+                        <p style="font-size: 11px; color: #888; margin: 0;">Try before you commit</p>
+                    </div>
+
+                    <div style="height: 1px; background: #222; margin: 2px 0;"></div>
+
+                    <ul class="pricing-features">
+                        <li class="feature-header">Basics</li>
+                        <li>3 private chats synced</li>
+                        <li>1 channel monitored</li>
+                        <li>7-day message history</li>
+                        
+                        <li class="feature-header">Automation</li>
+                        <li>1 bot (100 msgs/mo)</li>
+
+                        <li class="feature-header">Intelligence</li>
+                        <li>Limited AI trials</li>
+                    </ul>
                 </div>
-                <div class="pricing-col" style="border-color: var(--accent); background: #0f1c1c;">
-                    <h3 style="color: var(--accent);">Business</h3>
-                    <div class="price-tag">$50<span class="price-period">/mo</span></div>
-                    <p style="font-size: 16px; color: #8baeb0;">For growing teams.</p>
+
+                <!-- TIER 2: STARTER -->
+                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border-top: 2px solid #666; gap: 10px;">
+                    <div>
+                        <h3 style="font-size: 14px; color: #fff; margin: 0; font-weight: 600;">Starter</h3>
+                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$15<span class="price-period" style="font-size: 12px; font-weight: 400; color: #666;"> /mo</span></div>
+                        <p style="font-size: 11px; color: #888; margin: 0;">For solo entrepreneurs</p>
+                    </div>
+
+                    <div style="height: 1px; background: #333; margin: 2px 0;"></div>
+
+                    <ul class="pricing-features">
+                        <li class="feature-header">Core</li>
+                        <li>30 private chats</li>
+                        <li>10 channels</li>
+                        <li>30-day history</li>
+
+                        <li class="feature-header">Automation</li>
+                        <li>3 bots (1k msgs/mo)</li>
+
+                        <li class="feature-header">Intelligence</li>
+                        <li><span style="color: var(--accent);">~1M Tokens</span> <span style="color: #666;">(10% value)</span></li>
+                    </ul>
                 </div>
-                <div class="pricing-col">
-                    <h3>Enterprise</h3>
-                    <div class="price-tag">$200+<span class="price-period">/mo</span></div>
-                    <p style="font-size: 16px; color: #666;">For scale & API access.</p>
+
+                <!-- TIER 3: BUSINESS -->
+                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border: 1px solid var(--accent); background: linear-gradient(180deg, rgba(0, 242, 234, 0.05) 0%, rgba(10, 10, 10, 1) 100%); position: relative; top: -5px; box-shadow: 0 0 20px rgba(0, 242, 234, 0.05); gap: 10px;">
+                    <div>
+                        <h3 style="font-size: 14px; color: var(--accent); margin: 0; font-weight: 600;">Business</h3>
+                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$50<span class="price-period" style="font-size: 12px; font-weight: 400; color: #8baeb0;"> /user/mo</span></div>
+                        <p style="font-size: 11px; color: #8baeb0; margin: 0;">For growing teams</p>
+                    </div>
+
+                    <div style="height: 1px; background: rgba(0, 242, 234, 0.2); margin: 2px 0;"></div>
+
+                    <ul class="pricing-features">
+                        <li class="feature-header" style="color: var(--accent);">Core</li>
+                        <li>Unlimited chats & channels</li>
+                        <li>90-day history</li>
+                        <li>Team dashboards</li>
+
+                        <li class="feature-header" style="color: var(--accent);">Automation</li>
+                        <li>15 bots (10k msgs/mo)</li>
+
+                        <li class="feature-header" style="color: var(--accent);">Intelligence</li>
+                        <li><span style="color: var(--accent);">~4M Tokens</span> <span style="color: #666;">(12% value)</span></li>
+                        <li>Customer Intelligence</li>
+                    </ul>
+                </div>
+
+                <!-- TIER 4: ENTERPRISE -->
+                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border-top: 2px solid #fff; gap: 10px; position: relative;">
+                    <div style="position: absolute; top: 12px; right: 12px; background: #fff; color: #000; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 2px; text-transform: uppercase;">Scale</div>
+                    <div>
+                        <h3 style="font-size: 14px; color: #fff; margin: 0; font-weight: 600;">Enterprise</h3>
+                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$200+<span class="price-period" style="font-size: 12px; font-weight: 400; color: #666;"> /user/mo</span></div>
+                        <p style="font-size: 11px; color: #888; margin: 0;">For scale & API access</p>
+                    </div>
+
+                    <div style="height: 1px; background: #333; margin: 2px 0;"></div>
+
+                    <ul class="pricing-features">
+                        <li class="feature-header">Core</li>
+                        <li>Full message history</li>
+                        <li>Advanced analytics</li>
+
+                        <li class="feature-header">Automation</li>
+                        <li>Custom Limits</li>
+
+                        <li class="feature-header">Intelligence</li>
+                        <li><span style="color: var(--accent);">~20M+ Tokens</span> <span style="color: #666;">(15% value)</span></li>
+                        <li>API Access</li>
+                    </ul>
                 </div>
             </div>
+
+            <!-- ADD-ONS SECTION -->
+            <div style="margin-top: auto; border-top: 1px solid #222; padding-top: 20px;">
+                <div style="font-size: 10px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px;">Available Add-ons</div>
+                <div style="display: flex; gap: 40px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 32px; height: 32px; background: rgba(0, 242, 234, 0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent); font-size: 14px;"></i>
+                        </div>
+                        <div>
+                            <div style="color: #fff; font-size: 12px; font-weight: 600;">Vibe Coding Tools</div>
+                            <div style="color: #666; font-size: 10px;">Generative UI for bots</div>
+                        </div>
+                        <div style="background: #111; border: 1px solid #333; padding: 2px 6px; border-radius: 4px; font-size: 10px; color: #ccc; margin-left: 5px;">+$10/mo</div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="width: 32px; height: 32px; background: rgba(255, 255, 255, 0.05); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fa-solid fa-server" style="color: #fff; font-size: 14px;"></i>
+                        </div>
+                        <div>
+                            <div style="color: #fff; font-size: 12px; font-weight: 600;">Dedicated Instance</div>
+                            <div style="color: #666; font-size: 10px;">Single-tenant deployment</div>
+                        </div>
+                        <div style="background: #111; border: 1px solid #333; padding: 2px 6px; border-radius: 4px; font-size: 10px; color: #ccc; margin-left: 5px;">Custom</div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -448,22 +612,22 @@
             <div class="grid-4-col">
                 <div class="card">
                     <h3 style="font-size: 20px;">Mirzosharif</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Founder & Tech</p>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Founder & CTO</p>
                     <p style="font-size: 14px; color: #888;">LLM Researcher. Olympiad Medalist. Built Opportuni (UNDP backed startup).</p>
                 </div>
                 <div class="card">
                     <h3 style="font-size: 20px;">Oybek</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Co-founder</p>
-                    <p style="font-size: 14px; color: #888;">CEO of IT Abstract Group. AI500 Mentor turned believer.</p>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Co-founder & CEO</p>
+                    <p style="font-size: 14px; color: #888;">CEO of IT Abstract Group.</p>
                 </div>
                 <div class="card">
                     <h3 style="font-size: 20px;">Mukhlisa</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Market Research</p>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Research Expert</p>
                     <p style="font-size: 14px; color: #888;">Currently at ZOZH (NYC). Deep understanding of consumer behavior.</p>
                 </div>
                 <div class="card">
                     <h3 style="font-size: 20px;">Khumoyun</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Strategy</p>
+                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Strategy Expert</p>
                     <p style="font-size: 14px; color: #888;">Ex-Disney & Ministry of Finance. Strategic partnerships.</p>
                 </div>
             </div>
