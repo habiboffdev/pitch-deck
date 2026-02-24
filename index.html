@@ -3,638 +3,1306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OQIM - UzCombinator Pitch Deck</title>
+    <title>OQIM - UZCombinator Demo Day</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:wght@600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* 1. YC / LINEAR AESTHETIC CORE */
         :root {
-            --bg-color: #000000;
-            --surface-color: #0A0A0A;
-            --border-color: #262626;
-            --text-main: #FFFFFF;
-            --text-muted: #888888;
-            --accent: #00F2EA; /* OQIM Cyan */
+            --bg: #000000;
+            --surface: #0A0A0A;
+            --border: #1a1a1a;
+            --text: #FFFFFF;
+            --muted: #666666;
+            --accent: #00F2EA;
+            --accent-dim: rgba(0, 242, 234, 0.15);
+            --red: #ff4444;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            background-color: #111;
-            margin: 0;
-            padding: 40px 0;
-            min-height: 100vh;
+            background: #111;
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: var(--text);
             display: grid;
             place-items: center;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            color: var(--text-main);
+            padding: 40px 0;
             gap: 40px;
         }
 
-        .slide-container {
+        .slide {
             width: 1280px;
             height: 720px;
-            background-color: var(--bg-color);
+            background: var(--bg);
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            padding: 60px 80px; /* Generous padding */
-            border: 1px solid #333;
+            border: 1px solid #222;
         }
 
-        /* Background Grid */
-        .grid-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .slide-inner {
+            position: relative;
+            z-index: 1;
             width: 100%;
             height: 100%;
-            background-image: url('http://googleusercontent.com/image_collection/image_retrieval/10613598875444823658');
-            background-size: cover;
-            opacity: 0.15;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .content {
-            z-index: 1;
-            height: 100%;
+            padding: 64px 80px;
             display: flex;
             flex-direction: column;
         }
 
-        /* 2. TYPOGRAPHY */
-        h1 {
-            font-family: 'Bricolage Grotesque', sans-serif;
-            font-size: 110px; 
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            margin: 0 0 20px 0;
-            line-height: 1;
+        /* Subtle dot grid background */
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle, #222 1px, transparent 1px);
+            background-size: 24px 24px;
+            opacity: 0.4;
+            z-index: 0;
         }
 
-        h2.slide-title {
-            font-size: 36px;
+        /* Slide number */
+        .slide-num {
+            position: absolute;
+            bottom: 24px;
+            right: 32px;
+            font-size: 13px;
+            color: #333;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            z-index: 2;
+        }
+
+        /* ─── SLIDE 1: TITLE ─── */
+        .title-slide .slide-inner {
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .title-logo {
+            font-size: 120px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 24px;
+        }
+
+        .title-tagline {
+            font-size: 32px;
+            font-weight: 400;
+            color: #888;
+            line-height: 1.3;
+        }
+
+        .title-tagline em {
+            color: var(--accent);
+            font-style: normal;
             font-weight: 600;
-            letter-spacing: -0.02em;
-            margin: 0 0 40px 0;
-            color: var(--text-muted);
+        }
+
+        .title-badge {
+            margin-top: 48px;
+            font-size: 13px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ─── SLIDE 2: PROBLEM ─── */
+        .problem-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .problem-stat {
+            font-size: 96px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--red);
+            margin-bottom: 24px;
+        }
+
+        .problem-stat span {
+            color: var(--text);
+        }
+
+        .problem-text {
+            font-size: 28px;
+            color: #999;
+            line-height: 1.5;
+            max-width: 900px;
+        }
+
+        .problem-text strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .problem-source {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* Pain points row */
+        .pain-points {
+            display: flex;
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .pain-point {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            font-size: 20px;
+            color: #666;
+        }
+
+        .pain-point::before {
+            content: '\00D7';
+            color: var(--red);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        /* ─── SLIDE 3: SOLUTION ─── */
+        .solution-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .solution-headline {
+            font-size: 52px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+            margin-bottom: 48px;
+            max-width: 900px;
+        }
+
+        .solution-headline em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .solution-steps {
             display: flex;
             align-items: center;
+            gap: 0;
+        }
+
+        .solution-step {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 24px 32px;
+            flex: 1;
+        }
+
+        .solution-step-num {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .solution-step-text {
+            font-size: 20px;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
+        .solution-arrow {
+            font-size: 24px;
+            color: #333;
+            padding: 0 8px;
+            flex-shrink: 0;
+        }
+
+        .solution-benefit {
+            margin-top: 40px;
+            font-size: 22px;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ─── SLIDE 4: PRODUCT ─── */
+        .product-slide .slide-inner {
+            padding: 48px 64px;
+        }
+
+        .product-header {
+            font-size: 14px;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-header::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent);
+        }
+
+        .product-title {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 32px;
+        }
+
+        .product-mockup {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mockup-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            width: 100%;
+            padding: 32px;
+        }
+
+        /* Fake UI mockup */
+        .mock-ui {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 240px 1fr 280px;
+            gap: 1px;
+            background: #111;
+            height: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mock-sidebar {
+            background: #0d0d0d;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             gap: 12px;
         }
-        
-        h2.slide-title::before {
-            content: 'OQIM /';
-            color: #fff;
-            font-weight: 700;
-            font-family: 'Bricolage Grotesque', sans-serif;
-        }
 
-        h3 {
-            font-size: 24px;
-            font-weight: 600;
-            margin: 0 0 10px 0;
-        }
-
-        /* GLOBAL TEXT STYLES - CAREFUL WITH OVERRIDES */
-        p, .content > ul > li {
-            font-size: 24px;
-            color: #d4d4d4;
-            line-height: 1.5;
-            margin: 0 0 20px 0;
-            font-weight: 400;
-        }
-        
-        .big-stat {
-            font-size: 100px;
-            font-weight: 700;
-            color: var(--text-main);
-            line-height: 1;
-            letter-spacing: -0.04em;
-        }
-
-        .accent-text {
-            color: var(--accent);
-        }
-
-        .source-text {
-            font-size: 14px;
+        .mock-sidebar-title {
+            font-size: 11px;
             color: #444;
-            margin-top: -10px;
-            margin-bottom: 20px;
-            font-family: 'Inter', monospace;
-        }
-
-        .mvp-badge {
-            font-size: 14px;
-            background: #222;
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 4px;
-            border: 1px solid #333;
-            margin-left: 15px;
-            vertical-align: middle;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-bottom: 4px;
         }
 
-        /* 3. LAYOUT UTILITIES */
-        .flex-center {
+        .mock-chat-item {
             display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: default;
+        }
+
+        .mock-chat-item.active {
+            background: rgba(0, 242, 234, 0.08);
+        }
+
+        .mock-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            align-items: center;
-            height: 100%;
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
         }
 
-        .grid-2-col {
+        .mock-chat-item.active .mock-avatar {
+            background: var(--accent-dim);
+            color: var(--accent);
+        }
+
+        .mock-chat-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #888;
+        }
+
+        .mock-chat-item.active .mock-chat-name {
+            color: #fff;
+        }
+
+        .mock-main {
+            background: #080808;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mock-main-header {
+            padding: 16px 24px;
+            border-bottom: 1px solid #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mock-main-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .mock-status-badge {
+            font-size: 11px;
+            background: rgba(0, 242, 234, 0.1);
+            color: var(--accent);
+            padding: 3px 10px;
+            border-radius: 99px;
+            font-weight: 500;
+        }
+
+        .mock-messages {
+            flex: 1;
+            padding: 20px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            overflow: hidden;
+        }
+
+        .mock-msg {
+            max-width: 70%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .mock-msg.customer {
+            background: #1a1a1a;
+            color: #ccc;
+            align-self: flex-start;
+            border-bottom-left-radius: 4px;
+        }
+
+        .mock-msg.ai {
+            background: rgba(0, 242, 234, 0.08);
+            color: #ddd;
+            align-self: flex-end;
+            border-bottom-right-radius: 4px;
+            border: 1px solid rgba(0, 242, 234, 0.15);
+        }
+
+        .mock-msg .ai-label {
+            font-size: 10px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: 0.03em;
+        }
+
+        .mock-pipeline {
+            background: #0d0d0d;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .mock-pipeline-title {
+            font-size: 11px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .mock-stage {
+            padding: 10px 12px;
+            background: #111;
+            border-radius: 6px;
+            border-left: 3px solid #333;
+        }
+
+        .mock-stage.active {
+            border-left-color: var(--accent);
+            background: rgba(0, 242, 234, 0.04);
+        }
+
+        .mock-stage-name {
+            font-size: 11px;
+            color: #555;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .mock-stage.active .mock-stage-name {
+            color: var(--accent);
+        }
+
+        .mock-stage-count {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .mock-stage.active .mock-stage-count {
+            color: #fff;
+        }
+
+        .product-tech-bar {
+            display: flex;
+            gap: 24px;
+            margin-top: 12px;
+            align-items: center;
+        }
+
+        .tech-tag {
+            font-size: 11px;
+            color: #444;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            padding: 4px 10px;
+            border: 1px solid #1a1a1a;
+            border-radius: 4px;
+        }
+
+        .tech-tag.highlight {
+            color: var(--accent);
+            border-color: rgba(0, 242, 234, 0.2);
+        }
+
+        /* ─── SLIDE 5: MARKET ─── */
+        .market-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .market-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 56px;
+        }
+
+        .market-title em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .market-columns {
             display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
-            height: 100%;
-            align-items: center;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
         }
 
-        .grid-3-col {
+        .market-big-number {
+            margin-bottom: 40px;
+        }
+
+        .market-big-number .num {
+            font-size: 72px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            color: var(--accent);
+        }
+
+        .market-big-number .label {
+            font-size: 18px;
+            color: #888;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .market-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .market-stat-row {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 16px;
+        }
+
+        .market-stat-row .val {
+            font-size: 28px;
+            font-weight: 700;
+            min-width: 120px;
+            color: #fff;
+            letter-spacing: -0.02em;
+        }
+
+        .market-stat-row .desc {
+            font-size: 16px;
+            color: #666;
+        }
+
+        .market-source {
+            margin-top: 40px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* ─── SLIDE 6: TRACTION ─── */
+        .traction-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .traction-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 56px;
+        }
+
+        .traction-title em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .traction-metric {
+            border-left: 2px solid var(--border);
+            padding-left: 24px;
+        }
+
+        .traction-metric.highlight {
+            border-left-color: var(--accent);
+        }
+
+        .traction-metric-value {
+            font-size: 56px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .traction-metric.highlight .traction-metric-value {
+            color: var(--accent);
+        }
+
+        .traction-metric-label {
+            font-size: 16px;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .traction-logos {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 20px 24px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            width: fit-content;
+        }
+
+        .traction-logos-label {
+            font-size: 12px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .traction-customer {
+            font-size: 16px;
+            color: #888;
+            font-weight: 500;
+            padding: 6px 16px;
+            border: 1px solid #222;
+            border-radius: 4px;
+        }
+
+        /* ─── SLIDE 7: BUSINESS MODEL ─── */
+        .bizmodel-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .bizmodel-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 56px;
+        }
+
+        .bizmodel-title em {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .bizmodel-tiers {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
-            height: 100%;
-            align-items: stretch;
-        }
-        
-        .grid-4-col {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            align-items: stretch;
+            margin-bottom: 48px;
         }
 
-        /* 4. COMPONENT STYLES */
-        
-        .card {
-            border-top: 1px solid var(--border-color);
-            padding-top: 24px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .card-icon {
-            font-size: 24px;
-            color: var(--accent);
-            margin-bottom: 20px;
-        }
-
-        /* Problem Statement */
-        .problem-stat {
-            font-size: 60px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            letter-spacing: -0.03em;
-        }
-
-        .problem-list {
-            list-style: none;
-            padding: 0;
-            margin: 40px 0 0 0;
-        }
-
-        .problem-list li {
-            display: flex;
-            align-items: baseline;
-            gap: 15px;
-            margin-bottom: 24px;
-            color: #a3a3a3;
-        }
-
-        .problem-list li::before {
-            content: '×';
-            color: #ff4444;
-            font-weight: 700;
-            font-size: 24px;
-        }
-
-        /* Traction Metrics */
-        .metric-box {
-            border-left: 2px solid var(--border-color);
-            padding-left: 30px;
-        }
-        
-        .metric-label {
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-muted);
-            margin-top: 10px;
-        }
-        
-        /* Pricing Table Styles (Specific Overrides) */
-        .pricing-col {
-            background: var(--surface-color);
-            border: 1px solid var(--border-color);
-            padding: 20px;
+        .bizmodel-tier {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 32px 28px;
             border-radius: 4px;
         }
 
-        /* Force override global li styles */
-        .pricing-features {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .pricing-features li {
-            font-size: 11px !important; /* The Fix */
-            line-height: 1.4 !important;
-            margin-bottom: 3px !important;
-            color: #aaa;
-            display: block;
+        .bizmodel-tier.featured {
+            border-color: var(--accent);
+            background: rgba(0, 242, 234, 0.04);
         }
 
-        .pricing-features li.feature-header {
-            color: #fff;
-            font-weight: 700;
-            font-size: 10px !important;
+        .bizmodel-tier-name {
+            font-size: 13px;
+            color: #444;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 12px !important;
-            margin-bottom: 6px !important;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
-        .pricing-features li.feature-header:first-child {
-            margin-top: 0 !important;
+        .bizmodel-tier.featured .bizmodel-tier-name {
+            color: var(--accent);
         }
-        
-        .price-tag {
-            font-size: 32px;
+
+        .bizmodel-tier-price {
+            font-size: 48px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .bizmodel-tier.featured .bizmodel-tier-price {
+            color: var(--accent);
+        }
+
+        .bizmodel-tier-unit {
+            font-size: 14px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .bizmodel-tier-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .bizmodel-tier-features li {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .bizmodel-tier-features li::before {
+            content: '+ ';
+            color: #333;
+            font-weight: 600;
+        }
+
+        .bizmodel-tier.featured .bizmodel-tier-features li::before {
+            color: var(--accent);
+        }
+
+        .bizmodel-bottom {
+            font-size: 20px;
+            color: #888;
+        }
+
+        .bizmodel-bottom strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* ─── SLIDE 8: COMPETITION ─── */
+        .competition-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .comp-title {
+            font-size: 40px;
             font-weight: 700;
-            margin: 10px 0;
-            color: var(--text-main);
+            letter-spacing: -0.02em;
+            margin-bottom: 48px;
+        }
+
+        .comp-matrix {
+            position: relative;
+            width: 680px;
+            height: 420px;
+            margin: 0 auto;
+        }
+
+        .comp-axis-x, .comp-axis-y {
+            position: absolute;
+            background: #222;
+        }
+
+        .comp-axis-x {
+            width: 100%;
+            height: 1px;
+            top: 50%;
+            left: 0;
+        }
+
+        .comp-axis-y {
+            width: 1px;
+            height: 100%;
+            left: 50%;
+            top: 0;
+        }
+
+        .comp-label {
+            position: absolute;
+            font-size: 12px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-weight: 600;
+        }
+
+        .comp-label.top { top: -8px; left: 50%; transform: translateX(-50%); }
+        .comp-label.bottom { bottom: -8px; left: 50%; transform: translateX(-50%); }
+        .comp-label.left { left: -8px; top: 50%; transform: translateY(-50%) rotate(-90deg); white-space: nowrap; }
+        .comp-label.right { right: -8px; top: 50%; transform: translateY(-50%) rotate(90deg); white-space: nowrap; }
+
+        .comp-dot {
+            position: absolute;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+        }
+
+        .comp-dot.competitor {
+            background: #111;
+            border: 1px solid #222;
+            color: #666;
+        }
+
+        .comp-dot.oqim {
+            background: rgba(0, 242, 234, 0.1);
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 16px;
+            box-shadow: 0 0 30px rgba(0, 242, 234, 0.1);
+        }
+
+        /* ─── SLIDE 8: TEAM + CTA ─── */
+        .team-slide .slide-inner {
+            justify-content: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 56px;
+        }
+
+        .team-member {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .team-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: #333;
+            border: 2px solid #222;
+        }
+
+        .team-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            font-size: 14px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .team-creds {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .team-creds li {
+            font-size: 15px;
+            color: #888;
+            line-height: 1.4;
+        }
+
+        .team-cta {
+            border-top: 1px solid #1a1a1a;
+            padding-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .team-cta-text {
+            font-size: 36px;
+            font-weight: 700;
             letter-spacing: -0.02em;
         }
-        
-        .price-period {
-            font-size: 13px;
-            color: var(--text-muted);
-            font-weight: 400;
+
+        .team-cta-url {
+            font-size: 24px;
+            color: var(--accent);
+            font-weight: 600;
         }
 
-        /* 5. PRINT OPTIMIZATION */
+        /* ─── PRINT ─── */
         @media print {
-            body { background-color: #000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; margin: 0 !important; padding: 0 !important; display: block !important; }
-            .slide-container { page-break-after: always; break-after: page; margin: 0 !important; border: none !important; width: 100% !important; height: 100vh !important; box-shadow: none !important; background-color: #000000 !important; }
-            .grid-bg { opacity: 0.3 !important; }
+            body {
+                background: #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                display: block !important;
+                gap: 0 !important;
+            }
+            .slide {
+                page-break-after: always;
+                break-after: page;
+                margin: 0 !important;
+                border: none !important;
+                width: 100% !important;
+                height: 100vh !important;
+            }
         }
-
     </style>
 </head>
 <body>
 
-    <!-- Slide 1: Title -->
-    <div class="slide-container" id="slide1">
-        <div class="grid-bg"></div>
-        <div class="content flex-center" style="align-items: flex-start; justify-content: center; flex-direction: column;">
-            <div style="margin-bottom: 40px; font-weight: 600; color: var(--accent); letter-spacing: 0.1em; font-size: 14px; text-transform: uppercase;">UzCombinator Pitch</div>
-            <h1>OQIM</h1>
-            <p style="font-size: 32px; color: #888;">Business Intelligence for Telegram.</p>
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 1: TITLE                          -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide title-slide" id="slide1">
+        <div class="slide-inner">
+            <div class="title-badge">UZCombinator Demo Day</div>
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="title-logo">OQIM</div>
+                <div class="title-tagline">Your business <em>never sleeps</em> on Telegram.</div>
+            </div>
         </div>
+        <div class="slide-num">01</div>
     </div>
 
-    <!-- Slide 2: Problem -->
-    <div class="slide-container" id="slide2">
-        <div class="grid-bg"></div>
-        <div class="content">
-            <h2 class="slide-title">Problem</h2>
-            <div class="grid-2-col">
-                <div>
-                    <div class="problem-stat">200k <span style="color: #666;">businesses run on Telegram.</span></div>
-                    <div class="source-text">(Source: stat.uz)</div>
-                    <div class="problem-stat" style="color: #666;">Zero <span style="color: var(--text-main);">visibility.</span></div>
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 2: PROBLEM                        -->
+    <!-- [Compelling Stat] + [Why It Matters]     -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide problem-slide" id="slide2">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="problem-stat">70% <span>of leads die in the inbox.</span></div>
+                <div class="problem-text">
+                    Uzbek businesses sell on Telegram. But they <strong>can't reply fast enough</strong>.
+                    Customers message, wait, and leave. Every unanswered message is money walking out the door.
                 </div>
-                <div>
-                    <ul class="problem-list">
-                        <li>No analytics or tracking</li>
-                        <li>Messages buried & orders lost</li>
-                        <li>Manual responses (100x same question)</li>
-                        <li>Owners running blind</li>
-                    </ul>
+                <div class="pain-points">
+                    <div class="pain-point">Slow replies</div>
+                    <div class="pain-point">No pipeline</div>
+                    <div class="pain-point">Can't scale sales team</div>
                 </div>
             </div>
         </div>
+        <div class="slide-num">02</div>
     </div>
 
-    <!-- Slide 3: Solution -->
-    <div class="slide-container" id="slide3">
-        <div class="grid-bg"></div>
-        <div class="content">
-            <h2 class="slide-title">Solution</h2>
-            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 30px;">
-                <h1 style="font-size: 48px; font-family: 'Inter', sans-serif; font-weight: 700; margin: 0;">The intelligence layer Telegram never built.</h1>
-            </div>
-            
-            <div style="display: flex; flex-direction: column; gap: 24px; height: 100%;">
-                
-                <!-- ROW 1: MVP LIVE -->
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div style="font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; display: flex; align-items: center; gap: 10px;">
-                        <span style="width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent);"></span>
-                        Live Now (MVP)
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 3: SOLUTION                       -->
+    <!-- [Value Prop] + [Simple How] + [Benefit]  -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide solution-slide" id="slide3">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="solution-headline">
+                    Not a chatbot. A full <em>AI sales engine</em> inside Telegram.
+                </div>
+                <div class="solution-steps">
+                    <div class="solution-step">
+                        <div class="solution-step-num">Understands your business</div>
+                        <div class="solution-step-text">Learns your catalog, prices, and how you sell — answers like your best employee</div>
                     </div>
-                    <div class="grid-3-col" style="gap: 20px;">
-                        <div class="card" style="padding-top: 20px; border-top-color: var(--accent);">
-                            <i class="fa-solid fa-magnifying-glass card-icon" style="font-size: 20px; margin-bottom: 15px;"></i>
-                            <h3 style="font-size: 20px;">Semantic Search</h3>
-                            <p style="font-size: 16px; color: #888; margin: 0;">Find "that order from last week" instantly. Understands context, not just keywords.</p>
-                        </div>
-                        <div class="card" style="padding-top: 20px; border-top-color: var(--accent);">
-                            <i class="fa-solid fa-bolt card-icon" style="font-size: 20px; margin-bottom: 15px;"></i>
-                            <h3 style="font-size: 20px;">Smart Feed</h3>
-                            <p style="font-size: 16px; color: #888; margin: 0;">AI filters noise. 500 messages → 30 seconds. Conversations convert to docs.</p>
-                        </div>
-                        <div class="card" style="padding-top: 20px; border-top-color: var(--accent);">
-                            <i class="fa-solid fa-robot card-icon" style="font-size: 20px; margin-bottom: 15px;"></i>
-                            <h3 style="font-size: 20px;">No-Code Bots</h3>
-                            <p style="font-size: 16px; color: #888; margin: 0;">Deploy service agents in 60s. Automate 80% of repetitive queries.</p>
-                        </div>
+                    <div class="solution-arrow">&rarr;</div>
+                    <div class="solution-step">
+                        <div class="solution-step-num">Sells autonomously</div>
+                        <div class="solution-step-text">Handles conversations, books appointments, moves leads through your pipeline</div>
+                    </div>
+                    <div class="solution-arrow">&rarr;</div>
+                    <div class="solution-step">
+                        <div class="solution-step-num">You stay in control</div>
+                        <div class="solution-step-text">Draft, Autonomous, or Autopilot — you choose how much the AI does</div>
                     </div>
                 </div>
-
-                <!-- ROW 2: FUTURE VISION -->
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <div style="font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; display: flex; align-items: center; gap: 10px;">
-                        <span style="width: 8px; height: 8px; border: 1px solid #666; border-radius: 50%;"></span>
-                        Building Now (Q3)
-                    </div>
-                    <div class="grid-3-col" style="gap: 20px;">
-                        <div class="card" style="padding-top: 20px; border-top-style: dashed; border-top-color: #444;">
-                            <i class="fa-solid fa-chart-line card-icon" style="color: #666; font-size: 20px; margin-bottom: 15px;"></i>
-                            <h3 style="font-size: 20px; color: #ccc;">Team Analytics</h3>
-                            <p style="font-size: 16px; color: #666; margin: 0;">Full visibility. Track response times, conversion rates, and agent performance.</p>
-                        </div>
-                        <div class="card" style="padding-top: 20px; border-top-style: dashed; border-top-color: #444;">
-                            <i class="fa-solid fa-brain card-icon" style="color: #666; font-size: 20px; margin-bottom: 15px;"></i>
-                            <h3 style="font-size: 20px; color: #ccc;">Deep CRM</h3>
-                            <p style="font-size: 16px; color: #666; margin: 0;">Know who buys, who churns, and <em style="color: #888;">why</em>—before it happens.</p>
-                        </div>
-                        <div class="card" style="padding-top: 20px; border-top-style: dashed; border-top-color: #444;">
-                            <i class="fa-solid fa-microchip card-icon" style="color: #666; font-size: 20px; margin-bottom: 15px;"></i>
-                            <h3 style="font-size: 20px; color: #ccc;">Autonomous Agents</h3>
-                            <p style="font-size: 16px; color: #666; margin: 0;">Multi-agent systems that don't just chat—they book, order, and close deals.</p>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="solution-benefit">CRM + AI Agent + Telegram. One platform. Zero switching.</div>
             </div>
         </div>
+        <div class="slide-num">03</div>
     </div>
 
-    <!-- Slide 4: Traction -->
-    <div class="slide-container" id="slide4">
-        <div class="grid-bg"></div>
-        <div class="content">
-            <h2 class="slide-title">Traction</h2>
-            <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; gap: 60px;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;">
-                    <div class="metric-box">
-                        <div class="big-stat accent-text">Top 3</div>
-                        <div class="metric-label">at AI500 Hackathon (1000+ Teams)</div>
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 4: PRODUCT                        -->
+    <!-- Show, don't tell. Product mockup.        -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide product-slide" id="slide4">
+        <div class="slide-inner">
+            <div class="product-header">Live Product</div>
+            <div class="product-title">Full CRM. AI agents. Real Telegram integration.</div>
+            <div class="product-mockup">
+                <div class="mock-ui">
+                    <!-- Sidebar: Chat list -->
+                    <div class="mock-sidebar">
+                        <div class="mock-sidebar-title">Conversations</div>
+                        <div class="mock-chat-item active">
+                            <div class="mock-avatar" style="background: var(--accent-dim); color: var(--accent);">XR</div>
+                            <div>
+                                <div class="mock-chat-name" style="color: #fff;">Xonsaroy Real Estate</div>
+                                <div style="font-size: 11px; color: var(--accent);">AI handling...</div>
+                            </div>
+                        </div>
+                        <div class="mock-chat-item">
+                            <div class="mock-avatar">AT</div>
+                            <div>
+                                <div class="mock-chat-name">AutoTrade UZ</div>
+                                <div style="font-size: 11px; color: #333;">2 min ago</div>
+                            </div>
+                        </div>
+                        <div class="mock-chat-item">
+                            <div class="mock-avatar">NF</div>
+                            <div>
+                                <div class="mock-chat-name">NexFit Gym</div>
+                                <div style="font-size: 11px; color: #333;">5 min ago</div>
+                            </div>
+                        </div>
+                        <div class="mock-chat-item">
+                            <div class="mock-avatar">KM</div>
+                            <div>
+                                <div class="mock-chat-name">Korzinka Market</div>
+                                <div style="font-size: 11px; color: #333;">12 min ago</div>
+                            </div>
+                        </div>
+                        <div class="mock-chat-item">
+                            <div class="mock-avatar">ZS</div>
+                            <div>
+                                <div class="mock-chat-name">Zafar Stones</div>
+                                <div style="font-size: 11px; color: #333;">1 hr ago</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="metric-box">
-                        <div class="big-stat">$10k</div>
-                        <div class="metric-label">Non-dilutive Prize Won</div>
+
+                    <!-- Main: Active conversation -->
+                    <div class="mock-main">
+                        <div class="mock-main-header">
+                            <div class="mock-main-title">Xonsaroy Real Estate</div>
+                            <div class="mock-status-badge">Autopilot Mode</div>
+                        </div>
+                        <div class="mock-messages">
+                            <div class="mock-msg customer">Hi, I saw your listing for the 3-room apartment in Yunusabad. Is it still available?</div>
+                            <div class="mock-msg ai">
+                                <div class="ai-label">OQIM AI &middot; <span style="opacity:0.6">catalog search</span></div>
+                                Hi! Yes, the 3-room apartment in Yunusabad (68m&sup2;, 5th floor) is available. The price is $85,000. Would you like to schedule a viewing? I can book you in tomorrow at 10:00 or 14:00.
+                            </div>
+                            <div class="mock-msg customer">Tomorrow at 14:00 works. Can I also see the 2-room in Chilanzar?</div>
+                            <div class="mock-msg ai">
+                                <div class="ai-label">OQIM AI &middot; <span style="opacity:0.6">auto-booked</span></div>
+                                Done! I've booked both viewings for tomorrow:<br>
+                                &bull; 14:00 — Yunusabad, 3-room ($85k)<br>
+                                &bull; 15:30 — Chilanzar, 2-room ($52k)<br>
+                                I'll send you the addresses in the morning.
+                            </div>
+                        </div>
                     </div>
-                    <div class="metric-box">
-                        <div class="big-stat">14</div>
-                        <div class="metric-label">Days to Build & Launch MVP</div>
+
+                    <!-- Pipeline sidebar -->
+                    <div class="mock-pipeline">
+                        <div class="mock-pipeline-title">Pipeline</div>
+                        <div class="mock-stage">
+                            <div class="mock-stage-name">New Leads</div>
+                            <div class="mock-stage-count">24</div>
+                        </div>
+                        <div class="mock-stage active">
+                            <div class="mock-stage-name">Qualified</div>
+                            <div class="mock-stage-count">12</div>
+                        </div>
+                        <div class="mock-stage">
+                            <div class="mock-stage-name">Viewing Booked</div>
+                            <div class="mock-stage-count">8</div>
+                        </div>
+                        <div class="mock-stage">
+                            <div class="mock-stage-name">Negotiating</div>
+                            <div class="mock-stage-count">3</div>
+                        </div>
+                        <div class="mock-stage">
+                            <div class="mock-stage-name">Closed</div>
+                            <div class="mock-stage-count">5</div>
+                        </div>
                     </div>
-                </div>
-                <div style="font-size: 24px; color: #fff; background: #1a1a1a; padding: 20px; border-radius: 4px; display: inline-block; width: fit-content;">
-                    <i class="fa-solid fa-check" style="color: var(--accent); margin-right: 10px;"></i> 10 Committed customers
                 </div>
             </div>
+            <div class="product-tech-bar">
+                <span style="font-size: 11px; color: #333; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;">Under the hood</span>
+                <div class="tech-tag highlight">AI Agents (Google ADK)</div>
+                <div class="tech-tag highlight">Groq Pre-pass Classifier</div>
+                <div class="tech-tag">Telegram MTProto</div>
+                <div class="tech-tag">pgVector Search</div>
+                <div class="tech-tag">Trust Modes</div>
+                <div class="tech-tag">Catalog + Knowledge Base</div>
+            </div>
         </div>
+        <div class="slide-num">04</div>
     </div>
 
-    <!-- Slide 5: Market (UPDATED) -->
-    <div class="slide-container" id="slide5">
-        <div class="grid-bg"></div>
-        <div class="content">
-            <h2 class="slide-title">Market</h2>
-            <div class="grid-2-col">
-                <div style="display: flex; flex-direction: column; gap: 40px;">
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 5: MARKET SIZE                    -->
+    <!-- How big is the opportunity               -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide market-slide" id="slide5">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="market-title">A <em>massive</em> market. Zero AI tools.</div>
+                <div class="market-columns">
                     <div>
-                        <div class="big-stat">20M</div>
-                        <p>Telegram Users in Uzbekistan</p>
+                        <div class="market-big-number">
+                            <div class="num">392K</div>
+                            <div class="label">small businesses in Uzbekistan.<br>Trade is the #1 sector (32.6%).</div>
+                        </div>
+                        <div class="market-big-number">
+                            <div class="num">76%</div>
+                            <div class="label">of Uzbekistan uses Telegram.<br>It's where businesses sell.</div>
+                        </div>
                     </div>
-                    <div>
-                        <div class="big-stat">200k</div>
-                        <p>Businesses using Telegram for Ops</p>
-                    </div>
-                    <div>
-                        <div class="big-stat accent-text">$500M</div>
-                        <p>B2B SaaS Opportunity in Central Asia</p>
+                    <div class="market-stats">
+                        <div class="market-stat-row">
+                            <div class="val">$1.8B</div>
+                            <div class="desc">e-commerce market, growing 41-47% CAGR</div>
+                        </div>
+                        <div class="market-stat-row">
+                            <div class="val">$84M</div>
+                            <div class="desc">CRM software market &rarr; $146M by 2030</div>
+                        </div>
+                        <div class="market-stat-row">
+                            <div class="val">$1.5B</div>
+                            <div class="desc">government AI revenue target by 2030</div>
+                        </div>
+                        <div class="market-stat-row" style="border-bottom: none;">
+                            <div class="val" style="color: var(--accent);">0</div>
+                            <div class="desc">Telegram-native AI CRM tools today</div>
+                        </div>
                     </div>
                 </div>
-                <!-- Updated Right Column: Market Dynamics (Fixed: Removed problem-list class) -->
-                <div style="border: 1px solid #333; padding: 40px; background: #0A0A0A; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                    <h3 style="color: var(--accent); margin-bottom: 30px;">Market Dynamics</h3>
-                    <ul style="list-style: none; padding: 0; margin: 0;">
-                        <li style="margin-bottom: 30px; font-size: 22px; color: #fff;">
-                            <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">Infrastructure Shift</strong>
-                            Websites are dying in Central Asia. Telegram is the new OS.
-                        </li>
-                        <li style="margin-bottom: 30px; font-size: 22px; color: #fff;">
-                            <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">Behavior</strong>
-                            Users don't browse. They chat. Commerce happens inside the messenger.
-                        </li>
-                        <li style="margin-bottom: 0; font-size: 22px; color: #fff;">
-                            <strong style="display: block; color: var(--text-muted); font-size: 16px; margin-bottom: 5px; text-transform: uppercase;">The Gap</strong>
-                            99% of these transactions are manual. We are the automation layer.
-                        </li>
-                    </ul>
-                </div>
+                <div class="market-source">Sources: Statista, KPMG, National Statistics Committee of Uzbekistan (2025)</div>
             </div>
         </div>
+        <div class="slide-num">05</div>
     </div>
 
-    <!-- Slide 6: Pricing (4 TIERS - FIXED SIZING) -->
-    <div class="slide-container" id="slide6">
-        <div class="grid-bg"></div>
-        <div class="content">
-            <h2 class="slide-title">Pricing</h2>
-            
-            <div style="text-align: center; margin-bottom: 20px;">
-                <h1 style="font-size: 40px; font-family: 'Inter', sans-serif; font-weight: 700; margin: 0 0 5px 0;">Start free. Scale as you grow.</h1>
-            </div>
-
-            <div class="grid-4-col" style="gap: 15px; align-items: stretch; height: auto;">
-                
-                <!-- TIER 1: FREE -->
-                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border-top: 2px solid #333; gap: 10px;">
-                    <div>
-                        <h3 style="font-size: 14px; color: #fff; margin: 0; font-weight: 600;">Free</h3>
-                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$0<span class="price-period" style="font-size: 12px; font-weight: 400; color: #666;"> forever</span></div>
-                        <p style="font-size: 11px; color: #888; margin: 0;">Try before you commit</p>
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 6: TRACTION                       -->
+    <!-- What we've done so far                   -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide traction-slide" id="slide6">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="traction-title"><em>10 businesses</em> committed before launch.</div>
+                <div class="traction-grid">
+                    <div class="traction-metric highlight">
+                        <div class="traction-metric-value">$10k</div>
+                        <div class="traction-metric-label">AI500 Hackathon Prize</div>
                     </div>
-
-                    <div style="height: 1px; background: #222; margin: 2px 0;"></div>
-
-                    <ul class="pricing-features">
-                        <li class="feature-header">Basics</li>
-                        <li>3 private chats synced</li>
-                        <li>1 channel monitored</li>
-                        <li>7-day message history</li>
-                        
-                        <li class="feature-header">Automation</li>
-                        <li>1 bot (100 msgs/mo)</li>
-
-                        <li class="feature-header">Intelligence</li>
-                        <li>Limited AI trials</li>
-                    </ul>
+                    <div class="traction-metric">
+                        <div class="traction-metric-value">10</div>
+                        <div class="traction-metric-label">Businesses committed<br>before launch</div>
+                    </div>
+                    <div class="traction-metric">
+                        <div class="traction-metric-value">Live</div>
+                        <div class="traction-metric-label">Product deployed and<br>serving customers</div>
+                    </div>
                 </div>
-
-                <!-- TIER 2: STARTER -->
-                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border-top: 2px solid #666; gap: 10px;">
-                    <div>
-                        <h3 style="font-size: 14px; color: #fff; margin: 0; font-weight: 600;">Starter</h3>
-                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$15<span class="price-period" style="font-size: 12px; font-weight: 400; color: #666;"> /mo</span></div>
-                        <p style="font-size: 11px; color: #888; margin: 0;">For solo entrepreneurs</p>
-                    </div>
-
-                    <div style="height: 1px; background: #333; margin: 2px 0;"></div>
-
-                    <ul class="pricing-features">
-                        <li class="feature-header">Core</li>
-                        <li>30 private chats</li>
-                        <li>10 channels</li>
-                        <li>30-day history</li>
-
-                        <li class="feature-header">Automation</li>
-                        <li>3 bots (1k msgs/mo)</li>
-
-                        <li class="feature-header">Intelligence</li>
-                        <li><span style="color: var(--accent);">~1M Tokens</span> <span style="color: #666;">(10% value)</span></li>
-                    </ul>
-                </div>
-
-                <!-- TIER 3: BUSINESS -->
-                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border: 1px solid var(--accent); background: linear-gradient(180deg, rgba(0, 242, 234, 0.05) 0%, rgba(10, 10, 10, 1) 100%); position: relative; top: -5px; box-shadow: 0 0 20px rgba(0, 242, 234, 0.05); gap: 10px;">
-                    <div>
-                        <h3 style="font-size: 14px; color: var(--accent); margin: 0; font-weight: 600;">Business</h3>
-                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$50<span class="price-period" style="font-size: 12px; font-weight: 400; color: #8baeb0;"> /user/mo</span></div>
-                        <p style="font-size: 11px; color: #8baeb0; margin: 0;">For growing teams</p>
-                    </div>
-
-                    <div style="height: 1px; background: rgba(0, 242, 234, 0.2); margin: 2px 0;"></div>
-
-                    <ul class="pricing-features">
-                        <li class="feature-header" style="color: var(--accent);">Core</li>
-                        <li>Unlimited chats & channels</li>
-                        <li>90-day history</li>
-                        <li>Team dashboards</li>
-
-                        <li class="feature-header" style="color: var(--accent);">Automation</li>
-                        <li>15 bots (10k msgs/mo)</li>
-
-                        <li class="feature-header" style="color: var(--accent);">Intelligence</li>
-                        <li><span style="color: var(--accent);">~4M Tokens</span> <span style="color: #666;">(12% value)</span></li>
-                        <li>Customer Intelligence</li>
-                    </ul>
-                </div>
-
-                <!-- TIER 4: ENTERPRISE -->
-                <div class="pricing-col" style="padding: 15px; display: flex; flex-direction: column; border-top: 2px solid #fff; gap: 10px; position: relative;">
-                    <div style="position: absolute; top: 12px; right: 12px; background: #fff; color: #000; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 2px; text-transform: uppercase;">Scale</div>
-                    <div>
-                        <h3 style="font-size: 14px; color: #fff; margin: 0; font-weight: 600;">Enterprise</h3>
-                        <div class="price-tag" style="font-size: 24px; margin: 5px 0; font-weight: 600;">$200+<span class="price-period" style="font-size: 12px; font-weight: 400; color: #666;"> /user/mo</span></div>
-                        <p style="font-size: 11px; color: #888; margin: 0;">For scale & API access</p>
-                    </div>
-
-                    <div style="height: 1px; background: #333; margin: 2px 0;"></div>
-
-                    <ul class="pricing-features">
-                        <li class="feature-header">Core</li>
-                        <li>Full message history</li>
-                        <li>Advanced analytics</li>
-
-                        <li class="feature-header">Automation</li>
-                        <li>Custom Limits</li>
-
-                        <li class="feature-header">Intelligence</li>
-                        <li><span style="color: var(--accent);">~20M+ Tokens</span> <span style="color: #666;">(15% value)</span></li>
-                        <li>API Access</li>
-                    </ul>
+                <div class="traction-logos">
+                    <div class="traction-logos-label">First customers</div>
+                    <div class="traction-customer">Xonsaroy (Real Estate)</div>
+                    <div style="color: #333;">+9 more committed</div>
                 </div>
             </div>
-
-            <!-- ADD-ONS SECTION -->
-            <div style="margin-top: auto; border-top: 1px solid #222; padding-top: 20px;">
-                <div style="font-size: 10px; color: #666; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 15px;">Available Add-ons</div>
-                <div style="display: flex; gap: 40px;">
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="width: 32px; height: 32px; background: rgba(0, 242, 234, 0.1); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent); font-size: 14px;"></i>
-                        </div>
-                        <div>
-                            <div style="color: #fff; font-size: 12px; font-weight: 600;">Vibe Coding Tools</div>
-                            <div style="color: #666; font-size: 10px;">Generative UI for bots</div>
-                        </div>
-                        <div style="background: #111; border: 1px solid #333; padding: 2px 6px; border-radius: 4px; font-size: 10px; color: #ccc; margin-left: 5px;">+$10/mo</div>
-                    </div>
-
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="width: 32px; height: 32px; background: rgba(255, 255, 255, 0.05); border-radius: 6px; display: flex; align-items: center; justify-content: center;">
-                            <i class="fa-solid fa-server" style="color: #fff; font-size: 14px;"></i>
-                        </div>
-                        <div>
-                            <div style="color: #fff; font-size: 12px; font-weight: 600;">Dedicated Instance</div>
-                            <div style="color: #666; font-size: 10px;">Single-tenant deployment</div>
-                        </div>
-                        <div style="background: #111; border: 1px solid #333; padding: 2px 6px; border-radius: 4px; font-size: 10px; color: #ccc; margin-left: 5px;">Custom</div>
-                    </div>
-                </div>
-            </div>
-
         </div>
+        <div class="slide-num">06</div>
     </div>
 
-    <!-- Slide 7: Team -->
-    <div class="slide-container" id="slide7">
-        <div class="grid-bg"></div>
-        <div class="content">
-            <h2 class="slide-title">Team</h2>
-            <div class="grid-4-col">
-                <div class="card">
-                    <h3 style="font-size: 20px;">Mirzosharif</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Founder & CTO</p>
-                    <p style="font-size: 14px; color: #888;">LLM Researcher. Olympiad Medalist. Built Opportuni (UNDP backed startup).</p>
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 7: BUSINESS MODEL                 -->
+    <!-- How we make money                        -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide bizmodel-slide" id="slide7">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="bizmodel-title">Simple pricing. <em>Real revenue.</em></div>
+                <div class="bizmodel-tiers">
+                    <div class="bizmodel-tier">
+                        <div class="bizmodel-tier-name">Starter</div>
+                        <div class="bizmodel-tier-price">$29</div>
+                        <div class="bizmodel-tier-unit">/ month</div>
+                        <ul class="bizmodel-tier-features">
+                            <li>1 Telegram account</li>
+                            <li>AI draft mode</li>
+                            <li>Basic CRM pipeline</li>
+                            <li>Catalog upload</li>
+                        </ul>
+                    </div>
+                    <div class="bizmodel-tier featured">
+                        <div class="bizmodel-tier-name">Growth</div>
+                        <div class="bizmodel-tier-price">$79</div>
+                        <div class="bizmodel-tier-unit">/ month</div>
+                        <ul class="bizmodel-tier-features">
+                            <li>3 Telegram accounts</li>
+                            <li>Autonomous + Autopilot modes</li>
+                            <li>Knowledge base search</li>
+                            <li>Broadcasts &amp; analytics</li>
+                        </ul>
+                    </div>
+                    <div class="bizmodel-tier">
+                        <div class="bizmodel-tier-name">Scale</div>
+                        <div class="bizmodel-tier-price">$199</div>
+                        <div class="bizmodel-tier-unit">/ month</div>
+                        <ul class="bizmodel-tier-features">
+                            <li>Unlimited accounts</li>
+                            <li>API access</li>
+                            <li>Custom AI training</li>
+                            <li>Priority support</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card">
-                    <h3 style="font-size: 20px;">Oybek</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Co-founder & CEO</p>
-                    <p style="font-size: 14px; color: #888;">CEO of IT Abstract Group.</p>
-                </div>
-                <div class="card">
-                    <h3 style="font-size: 20px;">Mukhlisa</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Research Expert</p>
-                    <p style="font-size: 14px; color: #888;">Currently at ZOZH (NYC). Deep understanding of consumer behavior.</p>
-                </div>
-                <div class="card">
-                    <h3 style="font-size: 20px;">Khumoyun</h3>
-                    <p style="font-size: 14px; color: var(--accent); margin-bottom: 10px;">Strategy Expert</p>
-                    <p style="font-size: 14px; color: #888;">Ex-Disney & Ministry of Finance. Strategic partnerships.</p>
-                </div>
-            </div>
-            <div style="margin-top: auto; border-top: 1px solid #333; padding-top: 30px;">
-                <p style="font-size: 32px; color: #fff; margin: 0;">"The Operating System for Central Asia."</p>
+                <div class="bizmodel-bottom"><strong>Land &amp; expand:</strong> Start with Starter, upgrade as you grow. Every tier pays for itself in the first week.</div>
             </div>
         </div>
+        <div class="slide-num">07</div>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 8: COMPETITION                    -->
+    <!-- 2x2 Matrix                               -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide competition-slide" id="slide8">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="comp-title">Why not something else?</div>
+                <div class="comp-matrix">
+                    <div class="comp-axis-x"></div>
+                    <div class="comp-axis-y"></div>
+
+                    <!-- Labels -->
+                    <div class="comp-label top">Telegram-native</div>
+                    <div class="comp-label bottom">Platform-agnostic</div>
+                    <div class="comp-label" style="position: absolute; top: 50%; left: -60px; transform: translateY(-50%) rotate(-90deg); white-space: nowrap;">Dumb scripts</div>
+                    <div class="comp-label" style="position: absolute; top: 50%; right: -60px; transform: translateY(-50%) rotate(90deg); white-space: nowrap;">AI-powered</div>
+
+                    <!-- Competitors -->
+                    <div class="comp-dot competitor" style="top: 28%; left: 25%;">BotFather bots</div>
+                    <div class="comp-dot competitor" style="top: 70%; left: 22%;">ManyChat</div>
+                    <div class="comp-dot competitor" style="top: 68%; left: 68%;">ChatGPT wrappers</div>
+                    <div class="comp-dot competitor" style="top: 35%; left: 60%;">Chatfuel</div>
+
+                    <!-- OQIM -->
+                    <div class="comp-dot oqim" style="top: 18%; left: 80%;">OQIM</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-num">08</div>
+    </div>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- SLIDE 9: TEAM + CTA                     -->
+    <!-- Why trust us + Call to action             -->
+    <!-- ════════════════════════════════════════ -->
+    <div class="slide team-slide" id="slide9">
+        <div class="slide-inner">
+            <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-photo">M</div>
+                        <div class="team-info">
+                            <h3>Mirzosharif Habibov</h3>
+                            <div class="team-role">Founder & CTO</div>
+                            <ul class="team-creds">
+                                <li>18 y.o. &middot; Ex-LLM Researcher</li>
+                                <li>1st place National Informatics Olympiad</li>
+                                <li>AI500 Hackathon $10K winner</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-photo">O</div>
+                        <div class="team-info">
+                            <h3>Oybek Mirhamidov</h3>
+                            <div class="team-role">CEO</div>
+                            <ul class="team-creds">
+                                <li>22 y.o. &middot; Ex-Toptal PM</li>
+                                <li>Founder of Ameen Class</li>
+                                <li>CEO of Abstract IT Group</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-cta">
+                    <div class="team-cta-text">Let's talk after the pitch.</div>
+                    <div class="team-cta-url">oqim.ai</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-num">09</div>
     </div>
 
 </body>
